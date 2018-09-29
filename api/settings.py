@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'adminplus',
     'rest_framework',
     'usermanagement.apps.UsermanagementConfig',
+    'challenges.apps.ChallengesConfig',
     'profile.apps.ProfileConfig',
 ]
 
