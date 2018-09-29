@@ -1,0 +1,5 @@
+Django==1.11.3
+psycopg2==2.7.1
+Django==1.11.3
+djangorestframework==3.6.2
+djangorestframework-jsonapi==2.2.0
