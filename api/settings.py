@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'safedelete',
+    'adminplus',
+    'rest_framework',
+    'usermanagement.apps.UsermanagementConfig',
 ]
 
 MIDDLEWARE = [
