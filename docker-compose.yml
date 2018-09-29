@@ -22,3 +22,5 @@ services:
       - db
     links:
       - db
+    volumes:
+      - .:/code
