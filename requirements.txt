@@ -7,3 +7,4 @@ django-safedelete==0.4.5
 django-adminplus==0.5
 Markdown==2.6.8
 pyjwt==1.5.2
+django-model-utils==3.0.0
