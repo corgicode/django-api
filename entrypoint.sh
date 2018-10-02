@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
-sleep 5s
-python3 manage.py migrate
+sleep 10s
 python3 manage.py runserver 0.0.0.0:9000
