@@ -104,6 +104,28 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 100,
+    'EXCEPTION_HANDLER': 'rest_framework_json_api.exceptions.exception_handler',
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework_json_api.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.JSONParser',
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework_json_api.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    'DEFAULT_METADATA_CLASS': 'rest_framework_json_api.metadata.JSONAPIMetadata',
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+}
+
+JSON_API_FORMAT_KEYS = 'underscore'
+JSON_API_FORMAT_TYPES = 'underscore'
+JSON_API_PLURALIZE_TYPES = True
+JSON_API_PLURALIZE_RELATION_TYPE = True
+JSON_API_FORMAT_RELATION_KEYS = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
