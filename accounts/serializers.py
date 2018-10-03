@@ -1,4 +1,4 @@
-from rest_framework_json_api import serializers, relations
+from rest_framework_json_api import serializers
 from accounts.models import User
 
 

@@ -2,3 +2,4 @@ Django==2.1.2
 psycopg2-binary==2.7.5
 djangorestframework==3.8.2
 djangorestframework-jsonapi==2.2.0
+sure==1.4.11
