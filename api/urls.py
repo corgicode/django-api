@@ -6,4 +6,5 @@ admin_root_url = r'^services/admin/'
 urlpatterns = [
     url(admin_root_url, admin.site.urls),
     url(r'^services/api/', include('accounts.urls')),
+    url(r'^services/api/', include('profile.urls')),
 ]
