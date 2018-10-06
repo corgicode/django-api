@@ -1,0 +1,42 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/django-api
+    docker:
+      - image: circleci/python:3.6.4
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+          DJANGO_SECRET_KEY: qAhCPjJP5wrixDBf0qhQd62TxJ0CirclECi
+          DJANGO_DEBUG: True
+          DB_POSTGRES_DATABASE_NAME: circle_test
+          DB_POSTGRES_USERNAME: root
+          DB_POSTGRES_PASSWORD: ''
+          DB_POSTGRES_HOSTNAME: localhost
+          DB_POSTGRES_PORT: 5432
+          API_SERVICES_URL: http://localhost:9000/services/api/
+          FRONTEND_APP_URL: http://localhost:3000/
+
+      - image: circleci/postgres:9.6.2
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle_test
+          POSTGRES_PASSWORD: ''
+    steps:
+      - checkout
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
+      - restore_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "requirements.txt" }}
+      - run:
+          command: |
+            sudo pip install pipenv
+            pipenv install
+      - save_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          paths:
+            - ".venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.6/site-packages"
+      - run:
+          command: |
+            pipenv run "python manage.py test"
