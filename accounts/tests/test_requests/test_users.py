@@ -14,8 +14,6 @@ class UserApiTests(APITestCase):
         """
         Ensure we get a user.
         """
-        user = User.objects.create(username="helloworld")
-
         response = self.client.get("/services/api/users",
                                    content_type=self.content_type)
 
@@ -23,4 +21,4 @@ class UserApiTests(APITestCase):
 
         response_data = json.loads(response.content)
         attributes = json.loads(response.content)['data'][0]['attributes']
-        attributes['username'].should.equal(user.username)
+        attributes['username'].should.equal('codecorgi')
