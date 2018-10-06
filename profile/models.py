@@ -22,6 +22,10 @@ class Profile(models.Model):
     blog = models.CharField(max_length=255, blank=True)
     public_repos = models.CharField(max_length=255, blank=True)
     hireable = models.BooleanField(default=False)
+    name = models.CharField(max_length=255, blank=True)
+    avatar_url = models.TextField(null=True)
+    hero_image_url = models.TextField(null=True)
+    private = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Profile"
