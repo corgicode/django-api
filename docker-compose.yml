@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./backups:/home/backups
+      - ./data/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=dbPassword
+      - POSTGRES_USER=dbUsername
+      - POSTGRES_DB=dbName
+  web:
+    build: .
+    command: ./entrypoint.sh
+    volumes:
+      - .:/code
+    ports:
+      - "9000:9000"
+    expose:
+      - "9000"
+    depends_on:
+      - db
+    links:
+      - db
+    volumes:
+      - .:/code
+    environment:
+      - DJANGO_SECRET_KEY=qAhCPjJP5wrixDBf0qhQd62TxJ0y9dtz
+      - DJANGO_DEBUG=True
+      - DB_POSTGRES_DATABASE_NAME=dbName
+      - DB_POSTGRES_USERNAME=dbUsername
+      - DB_POSTGRES_PASSWORD=dbPassword
+      - DB_POSTGRES_HOSTNAME=db
+      - DB_POSTGRES_PORT=5432
+      - API_SERVICES_URL=http://localhost:9000/services/api/
+      - FRONTEND_APP_URL=http://localhost:3000/
