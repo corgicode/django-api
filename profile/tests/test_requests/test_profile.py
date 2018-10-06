@@ -1,6 +1,5 @@
 from django.test import TestCase
 from rest_framework.test import APIClient, APITestCase
-from accounts.models import User
 from profile.models import Profile, ProfileURL
 import sure
 import json
@@ -14,9 +13,8 @@ class ProfileApiTests(APITestCase):
         """
         Ensure we get the correct profile
         """
-        user = User.objects.create(username="husky")
 
-        profile = Profile.objects.create(user=user, bio="Woof!")
+        profile = Profile.objects.filter().last()
 
         response = self.client.get("/services/api/profiles",
                                    content_type=self.content_type)
@@ -27,15 +25,14 @@ class ProfileApiTests(APITestCase):
         attributes = response_data['data'][0]['attributes']
         relationships = response_data['data'][0]['relationships']
         attributes['bio'].should.equal(profile.bio)
-        relationships['user']['data']['id'].should.equal(str(user.id))
+        relationships['user']['data']['id'].should.equal(str(profile.user.id))
 
     def test_profile_create_with_urls(self):
         """
         Ensure we get the correct profile and project urls
         """
-        user = User.objects.create(username="poodle")
 
-        profile = Profile.objects.create(user=user, bio="Woof! in French")
+        profile = Profile.objects.filter().last()
 
         url1 = ProfileURL.objects.create(profile=profile, name='codecorgi', url='https://codecorgi.co')
         url2 = ProfileURL.objects.create(profile=profile, name='codecorgi gh', url=None)
