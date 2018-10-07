@@ -35,6 +35,7 @@ class Challenge(models.Model):
     technical_notes = models.TextField()
     procedure = models.TextField()
     code_tips = models.TextField()
+    tags = models.ManyToManyField(Tag, related_name='challenges')
 
 class Attachment(models.Model):
     def __str__(self):
@@ -56,4 +57,4 @@ class Source(models.Model):
     name = models.CharField(max_length=250,)
     url = models.TextField()
     active = models.BooleanField(default=True)
-    challenge = models.ForeignKey(Challenge, on_delete=models.DO_NOTHING)
+    challenge = models.ForeignKey(Challenge, related_name='sources', on_delete=models.DO_NOTHING)
