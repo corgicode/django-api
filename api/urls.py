@@ -7,4 +7,5 @@ urlpatterns = [
     url(admin_root_url, admin.site.urls),
     url(r'^services/api/', include('accounts.urls')),
     url(r'^services/api/', include('profile.urls')),
+    url(r'^services/api/', include('challenges.urls')),
 ]
