@@ -47,3 +47,19 @@ class ChallengeSerializer(serializers.ModelSerializer):
     class JSONAPIMeta:
         included_resources = ['user', 'tags', 'sources']
 
+class TagGetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ('name', 'challenges')
+
+    challenges = ResourceRelatedField(
+        queryset=Challenge.objects,
+        many=True,
+    )
+
+    included_serializers = {
+        'challenges': ChallengeSerializer,
+    }
+
+    class JSONAPIMeta:
+        included_resources = ['challenges',]
