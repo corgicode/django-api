@@ -1,5 +1,9 @@
 # DjangoAPI for codecorgi.co
 
+[![Waffle.io - Issues in progress](https://badge.waffle.io/corgicode/django-api.png?label=in%20progress&title=In%20Progress)](http://waffle.io/corgicode/django-api)
+
+[![CircleCI](https://circleci.com/gh/corgicode/django-api/tree/dev.svg?style=svg)](https://circleci.com/gh/corgicode/django-api/tree/dev)
+
 ## Requirements
 
 ### Using Docker
