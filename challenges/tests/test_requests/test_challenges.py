@@ -1,7 +1,7 @@
 from django.test import TestCase
 from rest_framework.test import APIClient, APITestCase
 from accounts.models import User
-from challenges.models import Challenge, Tag, Attachment, Source
+from challenges.models import Challenge, Tag, Attachment
 import sure
 import json
 import pdb
@@ -56,7 +56,7 @@ class ChallengeApiTests(APITestCase):
         """
         Ensure we get the correct tags information with a challenge
         """
-        tag1 = Tag.objects.create(name='Javascript')
+        tag1 = Tag.objects.create(name='JavascriptTestTag')
 
         challenge = self.get_sample_challenge(tags=[ tag1 ])
 
@@ -73,15 +73,16 @@ class ChallengeApiTests(APITestCase):
 
         [item for item in included if item.get('type') == 'tags'][0]['attributes']['name'].should.equal(tag1.name)
 
-    def test_challenge_create_with_source(self):
+    def test_challenge_create_with_attachment(self):
         """
-        Ensure we get the correct sources information with the challenge
+        Ensure we get the correct attachments information with the challenge
         """
         challenge = self.get_sample_challenge()
-        source = Source.objects.create(
+        attachment = Attachment.objects.create(
             challenge=challenge,
             name='github',
-            url='https://github.com/corgicode'
+            attachment_type='github_url',
+            url='https://github.com/corgicode',
         )
 
         response = self.client.get(f'/services/api/challenges?pk={ challenge.id }',
@@ -92,13 +93,13 @@ class ChallengeApiTests(APITestCase):
         response_data = json.loads(response.content)
         included = response_data['included']
 
-        [item for item in included if item.get('type') == 'sources'][0]['attributes']['name'].should.equal(source.name)
+        [item for item in included if item.get('type') == 'attachments'][0]['attributes']['name'].should.equal(attachment.name)
 
     def get_challenges_with_tag_name(self):
         """
         Ensure we get the correct challenge
         """
-        tag = Tag.objects.create(name='testTag')
+        tag = Tag.objects.create(name='testTagName')
 
         challenge1 = self.get_sample_challenge(tags=[ tag ])
         challenge2 = self.get_sample_challenge(tags=[ tag ])
