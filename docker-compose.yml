@@ -2,6 +2,7 @@ version: '3'
 
 services:
   db:
+    container_name: corgi-pg
     image: postgres
     ports:
       - "5432:5432"
@@ -13,6 +14,7 @@ services:
       - POSTGRES_USER=dbUsername
       - POSTGRES_DB=dbName
   web:
+    container_name: corgi-web
     build: .
     command: ./entrypoint.sh
     volumes:
